@@ -39,7 +39,7 @@ while (true) {
         $creneaux[] = [$debut, $fin];
         $action = readline("Voulez vous enregister un nouveau creneau (o/n): ");
         if ($action === 'n') {
-              break;
+            break;
         }
     }
 }
@@ -59,7 +59,7 @@ foreach ($creneaux as $creneau) {
 }
 
 if ($creneauTrouve) {
-   echo "Le magasin sera ouvert";
+    echo "Le magasin sera ouvert";
 } else {
     echo "Desole, le magasin sera ferme :(";
 }

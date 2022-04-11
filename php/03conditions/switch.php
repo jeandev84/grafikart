@@ -58,12 +58,23 @@ if ($note > 10) {
 */
 
 
-$action = (int) readline("Entrez votre note : (1: attaquer, 2: defendre, 3: passer mon tour)");
+$action = (int) readline("Entrez votre note (1: attaquer, 2: defendre, 3: passer mon tour): ");
+
+
+if ($action === 1) {
+    echo "J'attaque!";
+} elseif ($action === 2) {
+    echo "Je defends";
+}elseif ($action === 3) {
+    echo "Je ne fais rien";
+}else {
+    echo "Command inconnue";
+}
 
 
 switch ($action) {
     case 1:
-        echo "J'attaque";
+        echo "J'attaque!";
         break;
     case 2:
         echo "Je defends";

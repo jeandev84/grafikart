@@ -10,3 +10,15 @@ if ((9 <= $heure && $heure <= 12) || (14 <= $heure && $heure <= 17)) {
 }
 
 echo "\n";
+
+/*
+ TRUE  && TRUE   = TRUE
+ TRUE  && FALSE  = FALSE
+ FALSE && TRUE   = FALSE
+ FALSE && FALSE  = FALSE
+
+ TRUE  || TRUE    = TRUE
+ TRUE  || FALSE   = TRUE
+ FALSE || TRUE    = TRUE
+ FALSE || FALSE   = FALSE
+*/

@@ -98,7 +98,7 @@ foreach ($creneaux as $index => $creneau) {
    if ($index > 0) {
        echo " et de ";
    }
-   echo "{$creneau[0]}h a {$creneau[1]}h";
+   echo " {$creneau[0]}h a {$creneau[1]}h";
 }
 
 echo "\n";

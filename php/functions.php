@@ -58,4 +58,25 @@ function dump($data, bool $die = false) {
     echo "</pre>";
     if ($die) die;
 }
+
+
+
+function debug() {
+
+    echo '<p style="margin-top: 20px;">';
+    echo '$_GET';
+    echo '<pre>';
+    print_r($_GET);
+    echo '<pre>';
+    echo '</p>';
+
+    echo "<p>";
+    echo '$_POST';
+    echo '<pre>';
+    print_r($_POST);
+    echo '<pre>';
+    echo '</p>';
+}
+
+
 ?>

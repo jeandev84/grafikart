@@ -1,54 +1,68 @@
 <?php
 
 /*
- * Deviner le chiffre
+ Elements compose de [name => price]
 */
 
-$deviner = 150;
+$currency = '€';
 
 
-$error   = null;
-$success = null;
-$value   = null;
+// Checkbox
+$parfums = [
+   'Fraise'   => 4,
+   'Chocolat' => 5,
+   'Vanille'  => 3
+];
 
-if (isset($_POST['number'])) {
 
-    $value = (int) $_POST['number'];
+// Radio
+$cornets = [
+   'Pot'    => 2,
+   'Cornet' => 3
+];
 
-    if ($value > $deviner) {
-       $error = "Votre chiffre est trop grand.";
-    } elseif ($value < $deviner) {
-        $error = "Votre chiffre est trop petit";
-    }else {
-        $success = "Bravo! Vous avez deviner le chiffre <strong>$deviner</strong>";
-    }
 
-}
+// Checkbox
+$supplements = [
+   'Pepite de chocolat' => 1,
+   'Chantilly' => 0.5
+];
+
+
+$title = "Composer votre glace";
+
 require 'header.php';
 
 ?>
 
+<h1>Composer votre glace</h1>
+<form action="/game.php" method="GET">
+    <!-- List parfums -->
+    <?php foreach ($parfums as $name => $price): ?>
+        <div class="checkbox">
+            <label for="fraise">
+                <input type="checkbox" id="fraise" name="parfum[]" value="<?= $name ?>">
+                <?= $name ?> - <?= $price ?> €
+            </label>
+        </div>
+    <?php endforeach; ?>
 
-<?php if ($error): ?>
-  <div class="alert alert-danger">
-      <?= $error?>
-  </div>
-<?php elseif($success): ?>
-  <div class="alert alert-success">
-      <?= $success?>
-  </div>
-<?php endif; ?>
-
-<form action="/game.php" method="POST">
-    <div class="form-group">
-        <input type="number" name="number" class="form-control" placeholder="Entre 0 et 1000" value="<?= $value ?>">
-    </div>
-    <!--
-    <div class="form-group">
-        <input type="text" name="demo"  class="form-control" value="test">
-    </div>
-    -->
-    <button type="submit" class="btn btn-primary">Deviner</button>
+    <button type="submit" class="btn btn-primary">Composer ma glace</button>
 </form>
 
+<?php debug(); ?>
+
+<!-- Maket Formulaire
+<h1>Composer votre glace</h1>
+<form action="/game.php" method="GET">
+    <div class="form-group">
+        <input type="checkbox" name="parfum[]" value="Fraise"> Fraise <br>
+        <input type="checkbox" name="parfum[]" value="Vanille"> Vanille <br>
+        <input type="checkbox" name="parfum[]" value="Chocolat"> Chocolat <br>
+    </div>
+    <button type="submit" class="btn btn-primary">Deviner</button>
+</form>
+-->
+
 <?php require 'footer.php'; ?>
+

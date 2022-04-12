@@ -76,6 +76,30 @@ HTML;
 
 }
 
+
+/**
+ * @param string $name
+ * @param string $value
+ * @param array $data
+ * @return string
+*/
+function radio(string $name, string $value, array $data = []): string {
+
+    $id = strtolower($name);
+    $attributes = '';
+
+    // example isset($_GET['parfum']) && in_array('Fraise', $_GET['parfum'])
+    if (isset($data[$name]) && $value === $data[$name]) {
+        $attributes .= 'checked';
+    }
+
+    return <<<HTML
+     <input type="radio" id="$id" name="$name" value="$value" $attributes>
+HTML;
+
+}
+
+
 /* ----------------------------------
  |
  |  Functions deboggage

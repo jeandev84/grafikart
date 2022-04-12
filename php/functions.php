@@ -1,6 +1,13 @@
 <?php
 
 
+/* ----------------------------------
+ |
+ |  Functions Navigation
+ |
+ |  ---------------------------------
+*/
+
 /**
  * @param string $link
  * @param string $title
@@ -37,14 +44,44 @@ function nav_menu(string $linkClass = ''): string {
 }
 
 
+
+
+/* ----------------------------------
+ |
+ |  Functions Formulaire
+ |
+ |  ---------------------------------
+*/
+
+
 /**
- * @param $str
+ * @param string $name
+ * @param string $value
+ * @param array $data
  * @return string
 */
-function escape($str) {
-    return htmlentities($str, ENT_QUOTES, 'UTF-8');
+function checkbox(string $name, string $value, array $data = []): string {
+
+   $id = strtolower($name);
+   $attributes = '';
+
+   // example isset($_GET['parfum']) && in_array('Fraise', $_GET['parfum'])
+   if (isset($data[$name]) && in_array($value, $data[$name])) {
+       $attributes .= 'checked';
+   }
+
+   return <<<HTML
+     <input type="checkbox" id="$id" name="{$name}[]" value="$value" $attributes>
+HTML;
+
 }
 
+/* ----------------------------------
+ |
+ |  Functions deboggage
+ |
+ |  ---------------------------------
+*/
 
 
 /**
@@ -76,6 +113,16 @@ function debug() {
     print_r($_POST);
     echo '<pre>';
     echo '</p>';
+}
+
+
+/**
+ * @param string $str
+ * @return string
+*/
+function escape(string $str): string
+{
+    return htmlentities($str, ENT_QUOTES, 'UTF-8');
 }
 
 

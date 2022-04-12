@@ -115,10 +115,6 @@ HTML;
 function creneauxHtml(array $creneaux): string
 {
 
-    if (empty($creneaux)) { // if(count($creneaux) === 0) { return "Ferme"; }
-        return "Ferme";
-    }
-
     // Construire le tableau intermediaire de Xh a Yh
     // Implode pour construire la phrase finale
 
@@ -134,20 +130,6 @@ function creneauxHtml(array $creneaux): string
 
 
 
-function in_creneaux(int $heure, array $creneaux): bool {
-
-    foreach ($creneaux as $creneau) {
-         $debut = $creneau[0];
-         $fin   = $creneau[1];
-
-         if ($heure >= $debut && $heure < $fin) {
-             return true;
-         }
-    }
-
-    return false;
-}
-
 
 /* ----------------------------------
  |
@@ -162,17 +144,13 @@ function in_creneaux(int $heure, array $creneaux): bool {
  * @param bool $die
  * @return void
 */
-function dump($data) {
+function dump($data, bool $die = false) {
     echo "<pre>";
     print_r($data);
     echo "</pre>";
-}
-
-
-function dd($data, bool $die = false) {
-    dump($data);
     if ($die) die;
 }
+
 
 
 function debug() {

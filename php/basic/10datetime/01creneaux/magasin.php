@@ -140,7 +140,7 @@ require 'header.php';
         </div>
     </div>
     <div class="col-md-8">
-        <form action="/game.php" method="GET">
+        <form action="/magasin.php" method="GET">
             <!-- List parfums -->
             <h2>Choisissez vos parfums</h2>
             <?php foreach ($parfums as $parfum => $price): ?>

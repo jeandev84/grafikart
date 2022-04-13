@@ -1,3 +1,3 @@
 .idea
-/vendor
-/php/Videos/*
+vendor
+/php/basic/Videos/*

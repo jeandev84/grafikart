@@ -61,7 +61,13 @@ require 'header.php';
 
         <form action="" method="GET">
             <div class="form-group">
-                <?= select('jour', $jour, JOURS) ?>
+                <select name="jour" id="days" class="form-control">
+                    <?php foreach (JOURS as $key => $day): ?>
+                        <option value="<?= $key ?>">
+                            <?= $day ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
             <div class="form-group">
                 <input class="form-control" type="number" name="heure" value="<?= $heure ?>">
@@ -71,7 +77,7 @@ require 'header.php';
 
         <ul>
             <?php foreach (JOURS as $k => $jour): ?>
-                  <li>
+                  <li <?php if ($k + 1 === (int) date('N')): ?> style="color: <?= $color ?>;" <?php endif; ?>>
                       <strong><?= $jour ?></strong>
                       <?=  creneauxHtml(CRENEAUX[$k]) ?>
                   </li>

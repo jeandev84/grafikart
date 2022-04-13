@@ -100,36 +100,6 @@ HTML;
 }
 
 
-/**
- * @param string $name
- * @param $value
- * @param array $options
- * @return void
-*/
-function select(string $name, $value, array $options): string {
-
-     $htmlOptions = [];
-
-     foreach ($options as $key => $option) {
-         $attributes = ($key == $value) ? ' selected' : '';
-         $htmlOptions[] = sprintf('<option value="%s" %s>%s</option>', $key, $attributes, $option);
-     }
-
-     return sprintf('<select class="form-control" name="%s">%s</select>', $name, implode($htmlOptions));
-}
-
-
-/*
-<select name="jour" id="days" class="form-control">
-    <?php foreach (JOURS as $key => $day): ?>
-        <option value="<?= $key ?>">
-            <?= $day ?>
-        </option>
-    <?php endforeach; ?>
-</select>
-*/
-
-
 /* ----------------------------------
  |
  |  CRENEAUX

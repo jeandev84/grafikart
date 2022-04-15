@@ -1,4 +1,18 @@
 <?php
+session_start();
+
+/*
+$_SESSION['role'] = 'administrateur';
+unset($_SESSION['role']);
+session_write_close() : permet d' ecrire des informations que nous avons definit au niveau du fichier.
+                        Execute a la fin de l' execution de notre script
+*/
+
+$_SESSION['user'] = [
+   'username' => 'John',
+   'password' => '0000'
+];
+
 $title = "Page d'accueil";
 require 'elements/header.php';
 ?>

@@ -3,12 +3,17 @@ require_once 'functions.php';
 
 $title = "Notre menu";
 
+/*
+les (2) lines revient a utiliser en une ligne la fonction file(__DIR__.DIRECTORY_SEPARATOR. 'data'. DIRECTORY_SEPARATOR. 'menu.tsv');
+$menu  = file_get_contents(__DIR__.DIRECTORY_SEPARATOR. 'data'. DIRECTORY_SEPARATOR. 'menu.tsv');
+$lines = explode(PHP_EOL, $menu);
+*/
 
-// CSV : COMMA SEPARATE VALUE
-$lines = file(__DIR__.DIRECTORY_SEPARATOR. 'data'. DIRECTORY_SEPARATOR. 'menu.csv');
+// TSV : TABULATION SEPARATE VALUE
+$lines = file(__DIR__.DIRECTORY_SEPARATOR. 'data'. DIRECTORY_SEPARATOR. 'menu.tsv');
 
 foreach ($lines as $k => $line) {
-    $lines[$k] = str_getcsv(trim($line, " \t\n\r\0\x0B,"));
+    $lines[$k] = explode("\t", trim($line));
 }
 
 

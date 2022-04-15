@@ -1,7 +1,7 @@
 <?php
 
 
-$filePath = realpath(__DIR__.DIRECTORY_SEPARATOR. '/storage/demo.csv');
+$filePath = realpath(__DIR__ . DIRECTORY_SEPARATOR);
 $stream   = fopen($filePath, 'r+');
 
 $k = 0;

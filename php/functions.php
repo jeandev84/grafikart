@@ -40,6 +40,7 @@ HTML;
 */
 function nav_menu(string $linkClass = ''): string {
    return nav_item('/index.php', 'Accueil', $linkClass) .
+          nav_item('/menu.php', 'Menu', $linkClass) .
           nav_item('/contact.php', 'Contact', $linkClass);
 }
 
@@ -189,12 +190,11 @@ function in_creneaux(int $heure, array $creneaux): bool {
 
 /**
  * @param $data
- * @param bool $die
  * @return void
 */
 function dump($data) {
     echo "<pre>";
-    print_r($data);
+    var_dump($data);
     echo "</pre>";
 }
 

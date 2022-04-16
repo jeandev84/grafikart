@@ -42,3 +42,90 @@ function nombre_vues(): string {
 
     return file_get_contents($fichier);
 }
+
+
+/**
+ * @param int $year
+ * @param int $month
+ * @return int
+*/
+function nombre_vues_mois(int $year, int $month): int {
+
+    // 01, 02, 03 ...
+    $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+    // /to/php/project/data/compteur-2022-02-* (generer en fonction de la selection d' annee et de mois
+    $fichier = dirname(__DIR__).
+               DIRECTORY_SEPARATOR.'data'.
+               DIRECTORY_SEPARATOR .
+               'compteur-' .
+               $year .
+               '-' .
+               $month .
+               '-*';
+
+    $fichiers = glob($fichier);
+    $total    = 0;
+
+    foreach ($fichiers as $fichier) {
+        $total += (int) file_get_contents($fichier);
+    }
+
+    return $total;
+}
+
+
+/*
+function nombre_vues_mois_example(int $year, string $month) {
+
+    $fichier = dirname(__DIR__).
+        DIRECTORY_SEPARATOR.'data'.
+        DIRECTORY_SEPARATOR .
+        'compteur-' .
+        $year .
+        '-' .
+        $month
+    ;
+}
+*/
+
+
+
+/**
+ * @param int $year
+ * @param int $month
+ * @return array
+*/
+function nombre_vues_details_mois(int $year, int $month): array {
+
+    // 01, 02, 03 ...
+    $month = str_pad($month, 2, '0', STR_PAD_LEFT);
+
+    // /to/php/project/data/compteur-2022-02-* (generer en fonction de la selection d' annee et de mois
+    $fichier = dirname(__DIR__).
+        DIRECTORY_SEPARATOR.'data'.
+        DIRECTORY_SEPARATOR .
+        'compteur-' .
+        $year .
+        '-' .
+        $month .
+        '-*';
+
+    $fichiers = glob($fichier);
+
+    $visites = [];
+
+    foreach ($fichiers as $fichier) {
+
+       $parties = explode('-', basename($fichier));
+
+       $visites[] = [
+          'annee'   => $parties[1],
+          'mois'     => $parties[2],
+          'jour'     => $parties[3],
+          'visites'  => file_get_contents($fichier)
+       ];
+    }
+
+    return $visites;
+}

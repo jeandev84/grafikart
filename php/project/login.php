@@ -2,9 +2,13 @@
 
 $error = null;
 
+/* $hash = password_hash('Doe', PASSWORD_DEFAULT, ['cost' => 12]); */
+
+$passwordHashed = '$2y$12$GWF1tI6kr7DqsyqzrZFURePra54i.TZFmHaCR4TjzbUNrCBz4eRhC';
+
 if (! empty($_POST['pseudo']) && ! empty($_POST['password'])) {
 
-    if ($_POST['pseudo'] === 'John' && $_POST['password'] === 'Doe') {
+    if ($_POST['pseudo'] === 'John' && password_verify($_POST['password'], $passwordHashed)) {
 
         session_start();
         $_SESSION['connected'] = 1;

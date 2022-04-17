@@ -7,12 +7,13 @@
             <div class="col-md-4">
                 <!-- generation de nombre de vue sur une page -->
                 <?php
-                require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions'. DIRECTORY_SEPARATOR . 'compteur.php';
-                ajouter_vue();
+                require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'class'. DIRECTORY_SEPARATOR . 'DoubleCompteur.php';
 
-                $nombreVues = nombre_vues();
+                $compteur = new DoubleCompteur(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'data'. DIRECTORY_SEPARATOR . 'compteur');
+                $compteur->incrementerNombreVues();
+                $vues = $compteur->recupererNombreVues(); // recupere le nombre de vues
                 ?>
-                Il y a <?= $nombreVues ?> visite<?php if ($nombreVues > 1): ?>s<?php endif; ?> sur le site.
+                Il y a <?= $vues ?> visite<?php if ($vues > 1): ?>s<?php endif; ?> sur le site.
             </div>
             <div class="col-md-4">
                 <form action="/newsletter.php" method="POST" class="form-inline">

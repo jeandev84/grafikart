@@ -26,12 +26,20 @@ class OpenWeather
        }
 
 
-
-
-
+       /**
+         * @param string $city
+         * @return array
+         * @throws Exception
+       */
        public function getToday(string $city)
        {
+            $data = $this->callAPI("weather?q={$city}");
 
+            return [
+                'temp'        => $data['main']['temp'],
+                'description' => $data['weather'][0]['description'],
+                'date'        => new DateTime()
+            ];
        }
 
 
@@ -45,25 +53,7 @@ class OpenWeather
        */
        public function getForecast(string $city): ?array
        {
-            $curl = curl_init("https://api.openweathermap.org/data/2.5/forecast?q={$city}&appid={$this->apiKey}&units=metric&lang=fr");
-
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER  => true,
-                CURLOPT_CAINFO          => realpath(dirname(__DIR__) .'/certificates/firefox.crt') ,
-                CURLOPT_TIMEOUT         => 1 // permet de dire au server si en 1 second pas de resultat alors abandone
-            ]);
-
-            $data = curl_exec($curl);
-
-            $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-            if ($data === false || $statusCode !== 200) {
-                return null;
-            }
-
-
-            $results = [];
-            $data = json_decode($data, true);
+            $data = $this->callAPI("forecast?q={$city}");
 
             foreach ($data['list'] as $day) {
                 $results[] = [
@@ -74,5 +64,34 @@ class OpenWeather
             }
 
             return $results;
+       }
+
+
+
+      /**
+        * @param string $endpoint
+        * @return array|null
+        * @throws Exception
+       */
+       private function callAPI(string $endpoint): ?array
+       {
+           $curl = curl_init("https://api.openweathermap.org/data/2.5/{$endpoint}&appid={$this->apiKey}&units=metric&lang=fr");
+
+           curl_setopt_array($curl, [
+               CURLOPT_RETURNTRANSFER  => true,
+               CURLOPT_CAINFO          => realpath(dirname(__DIR__) .'/certificates/firefox.crt') ,
+               CURLOPT_TIMEOUT         => 1 // permet de dire au server si en 1 second pas de resultat alors abandone
+           ]);
+
+           $data = curl_exec($curl);
+
+           $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+           if ($data === false || $statusCode !== 200) {
+               return null;
+           }
+
+
+           return json_decode($data, true);
        }
 }

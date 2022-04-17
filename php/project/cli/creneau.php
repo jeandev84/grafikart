@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__DIR__) . DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR .'Creneau.php';
+require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'class'. DIRECTORY_SEPARATOR .'Creneau.php';
 
 $creneau1 = new Creneau(9, 12);
 $creneau2 = new Creneau(14, 16);

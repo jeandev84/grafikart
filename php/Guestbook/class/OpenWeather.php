@@ -1,5 +1,10 @@
 <?php
 
+require_once 'Exception/CurlException.php';
+require_once 'Exception/HTTPException.php';
+require_once 'Exception/UnauthorizedHTTPException.php';
+
+
 
 /**
  * @OpenWeather
@@ -85,13 +90,29 @@ class OpenWeather
 
            $data = curl_exec($curl);
 
-           $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
-           if ($data === false || $statusCode !== 200) {
-               return null;
+           if ($data === false) {
+               /*
+                $error = curl_error($curl);
+                curl_close($curl);
+                throw new APIException($error);
+               */
+               throw new CurlException($curl);
            }
 
 
+           $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+           if ($statusCode !== 200) {
+               curl_close($curl);
+
+               if ($statusCode === 401) {
+                  throw new UnauthorizedHTTPException($data['message'], 401);
+               }
+
+               throw new HTTPException($data);
+           }
+
+           curl_close($curl);
            return json_decode($data, true);
        }
 }

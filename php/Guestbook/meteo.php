@@ -1,18 +1,32 @@
 <?php
+declare(strict_types=1);
+
 require_once 'class/OpenWeather.php';
 
 $celsius = '°C';
 $weather  = new OpenWeather('ca8bd7ffc58648c13b64915a4ae78f09');
 
-$forecast = $weather->getForecast('Montpellier,fr'); // recupere les info de meteo les 16 prochains jours
-$today    = $weather->getToday('Montpellier,fr');    // recupere les info de meteo du jour en cours
+$error = null;
+
+try {
+
+    $forecast = $weather->getForecast('Montpellier,fr'); // recupere les info de meteo les 16 prochains jours
+    $today    = $weather->getToday('Montpellier,fr');    // recupere les info de meteo du jour en cours
+
+} catch (Exception | Error $e) {
+
+    $error = $e->getMessage();
+
+}
 
 
 require 'elements/header.php';
 
 ?>
 
-
+<?php if ($error): ?>
+   <div class="alert alert-danger"><?= $error ?></div>
+<?php else: ?>
 <div class="container">
     <ul>
        <li>En ce moment <?= $today['description'] ?> <?= $today['temp'] ?> °C</li>
@@ -23,6 +37,8 @@ require 'elements/header.php';
     </ul>
 </div>
 
-<?php
+<?php endif; ?>
 
+<?php
 require 'elements/footer.php';
+

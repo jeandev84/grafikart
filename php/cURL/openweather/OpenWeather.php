@@ -26,16 +26,6 @@ class OpenWeather
        }
 
 
-
-
-
-       public function getToday(string $city)
-       {
-
-       }
-
-
-
        /**
         * Get forecast
         *
@@ -43,7 +33,7 @@ class OpenWeather
         * @return null|array
         * @throws Exception
        */
-       public function getForecast(string $city): ?array
+       public function forecast(string $city): ?array
        {
             $curl = curl_init("https://api.openweathermap.org/data/2.5/forecast?q={$city}&appid={$this->apiKey}&units=metric&lang=fr");
 
@@ -67,7 +57,7 @@ class OpenWeather
 
             foreach ($data['list'] as $day) {
                 $results[] = [
-                    'temp'        => $day['main']['temp'],
+                    'temp'        => $day['temp']['day'],
                     'description' => $day['weather'][0]['description'],
                     'date'        => new DateTime('@'. $day['dt'])
                 ];

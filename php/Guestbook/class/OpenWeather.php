@@ -5,8 +5,12 @@ require_once 'Exception/HTTPException.php';
 require_once 'Exception/UnauthorizedHTTPException.php';
 
 
+// https://docs.phpdoc.org/references/phpdoc/basic-syntax.html
 
 /**
+ * Gere l'API d'OpenWeather
+ *
+ * @author Jean-Claude <john@klod.fr>
  * @OpenWeather
 */
 class OpenWeather
@@ -31,12 +35,18 @@ class OpenWeather
        }
 
 
+
+
        /**
-         * @param string $city
+         * Recupere les informations meteorologiques du jour
+         *
+         * @param string $city  Ville (ex: Monpellier,fr)
+         *
          * @return array
+         *
          * @throws Exception
        */
-       public function getToday(string $city)
+       public function getToday(string $city): ?array
        {
             $data = $this->callAPI("weather?q={$city}");
 
@@ -50,15 +60,19 @@ class OpenWeather
 
 
        /**
-        * Get forecast
+        * Recupere les previsions sur plusieurs jours
         *
         * @param string $city
-        * @return null|array
+        *
+        * @return null|array[]
+        *
         * @throws Exception
        */
        public function getForecast(string $city): ?array
        {
             $data = $this->callAPI("forecast?q={$city}");
+
+            $results = [];
 
             foreach ($data['list'] as $day) {
                 $results[] = [
@@ -74,9 +88,15 @@ class OpenWeather
 
 
       /**
-        * @param string $endpoint
+        * Appelle l' API Open weather
+        *
+        * @param string $endpoint Action a appeler  (weather, weather/forecast)
+        *
         * @return array|null
-        * @throws Exception
+        *
+        * @throws CurlException Curl a rencontre une erreure
+        * @throws UnauthorizedHTTPException
+        * @throws HTTPException
        */
        private function callAPI(string $endpoint): ?array
        {

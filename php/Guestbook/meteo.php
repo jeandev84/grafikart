@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 require_once 'class/OpenWeather.php';
 
-$celsius = '°C';
+$celsius  = '°C';
 $weather  = new OpenWeather('ca8bd7ffc58648c13b64915a4ae78f09');
-
-$error = null;
+$error    = null;
 
 try {
 
@@ -27,11 +26,12 @@ require 'elements/header.php';
 <?php if ($error): ?>
    <div class="alert alert-danger"><?= $error ?></div>
 <?php else: ?>
+
 <div class="container">
     <ul>
        <li>En ce moment <?= $today['description'] ?> <?= $today['temp'] ?> °C</li>
        <?php foreach ($forecast as $day): ?>
-         <!--  <li>03/02/2018 Ciel degage 20 °C</li>-->
+         <!--<li>03/02/2018 Ciel degage 20 °C</li>-->
           <li><?= $day['date']->format('d/m/Y') ?> <?= $day['description'] ?> <?= $day['temp'] ?> °C</li>
        <?php endforeach; ?>
     </ul>
